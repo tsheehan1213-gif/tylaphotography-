@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tyla Photography</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f172a;
+  --surface:rgba(15,23,42,.78);
+  --surface-2:rgba(255,255,255,.06);
+  --text:#f8fafc;
+  --muted:#cbd5e1;
+  --primary:#f472b6;
+  --primary-dark:#ec4899;
+  --border:rgba(255,255,255,.12);
+  --shadow:0 18px 45px rgba(0,0,0,.32);
+  --radius:24px;
+}
+
+body.light{
+  --bg:#f4f5f9;
+  --surface:rgba(255,255,255,.92);
+  --surface-2:rgba(255,255,255,.78);
+  --text:#1f2937;
+  --muted:#6b7280;
+  --primary:#d97fb0;
+  --primary-dark:#c86ba0;
+  --border:rgba(0,0,0,.08);
+  --shadow:0 18px 45px rgba(0,0,0,.12);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:'Poppins',sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(244,114,182,.18), transparent 26%),
+    radial-gradient(circle at bottom right, rgba(59,130,246,.16), transparent 24%),
+    linear-gradient(135deg, #020617 0%, #0f172a 45%, #111827 100%);
+  background-attachment:fixed;
+  overflow-x:hidden;
+  font-family:'Poppins',sans-serif;
+}
+
+body.light{
+  background:
+    radial-gradient(circle at top left, rgba(201,111,154,.12), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(99,102,241,.08), transparent 24%),
+    linear-gradient(135deg, #f8f9fc 0%, #f3f4f8 45%, #eef2f7 100%);
+}
+
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:-1;
+  filter:blur(30px);
+}
+
+body::before{
+  width:360px;
+  height:360px;
+  top:-100px;
+  right:-120px;
+  background:radial-gradient(circle, rgba(244,114,182,.16), transparent 70%);
+}
+
+body::after{
+  width:400px;
+  height:400px;
+  left:-140px;
+  bottom:-140px;
+  background:radial-gradient(circle, rgba(59,130,246,.14), transparent 72%);
+}
+
+body.light::before{
+  background:radial-gradient(circle, rgba(201,111,154,.16), transparent 70%);
+}
+
+body.light::after{
+  background:radial-gradient(circle, rgba(99,102,241,.12), transparent 72%);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.page{
+  width:min(1200px, calc(100% - 32px));
+  margin:18px auto;
+}
+
+.navbar{
+  background:rgba(15,23,42,.72);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  border-radius:999px;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+body.light .navbar{
+  background:rgba(255,255,255,.78);
+}
+
+.brand{
+  font-family:'Playfair Display', serif;
+  font-weight:700;
+  letter-spacing:.2px;
+  font-size:1.15rem;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.nav-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:flex-end;
+}
+
+.nav-links a{
+  color:var(--muted);
+  padding:10px 14px;
+  border-radius:999px;
+  transition:.2s ease;
+  font-family:'Poppins',sans-serif;
+}
+
+.nav-links a:hover{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+}
+
+body.light .nav-links a:hover{
+  background:rgba(201,111,154,.10);
+  color:var(--primary-dark);
+}
+
+.theme-toggle{
+  border:none;
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s ease;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-family:'Poppins',sans-serif;
+}
+
+body.light .theme-toggle{
+  background:#fff;
+  color:var(--text);
+  border:1px solid var(--border);
+}
+
+.theme-toggle:hover{
+  transform:translateY(-1px);
+}
+
+.hero{
+  margin-top:22px;
+  background:rgba(15,23,42,.72);
+  backdrop-filter:blur(18px);
+  border:1px solid var(--border);
+  border-radius:calc(var(--radius) + 6px);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  padding:32px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:26px;
+  align-items:center;
+}
+
+body.light .hero,
+body.light .section{
+  background:rgba(255,255,255,.82);
+}
+
+.hero-copy h1{
+  font-family:'Playfair Display', serif;
+  font-size:clamp(2rem, 5vw, 4rem);
+  line-height:1.05;
+  margin-bottom:14px;
+}
+
+.hero-copy p{
+  color:var(--muted);
+  line-height:1.75;
+  max-width:55ch;
+  margin-bottom:22px;
+  font-family:'Poppins',sans-serif;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:13px 20px;
+  border-radius:999px;
+  font-weight:600;
+  border:1px solid transparent;
+  transition:.2s ease;
+  cursor:pointer;
+  font-family:'Poppins',sans-serif;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color:#fff;
+  box-shadow:0 10px 22px rgba(244,114,182,.18);
+}
+
+.btn-primary:hover{
+  transform:translateY(-1px);
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.06);
+  border-color:var(--border);
+  color:#fff;
+}
+
+body.light .btn-secondary{
+  background:#fff;
+  color:var(--text);
+}
+
+.btn-secondary:hover{
+  border-color:rgba(255,255,255,.24);
+}
+
+body.light .btn-secondary:hover{
+  border-color:var(--primary);
+  color:var(--primary-dark);
+}
+
+.section{
+  margin-top:28px;
+  background:rgba(15,23,42,.72);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:28px;
+}
+
+.section-header{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.section-header h2{
+  font-family:'Playfair Display', serif;
+  font-size:clamp(1.6rem, 3vw, 2.3rem);
+  margin-bottom:8px;
+}
+
+.section-header p{
+  color:var(--muted);
+  line-height:1.7;
+  font-family:'Poppins',sans-serif;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:18px;
+}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.card-body{
+  padding:20px;
+}
+
+.card-body h3,
+.feature h3{
+  margin-bottom:8px;
+  color:#f9a8d4;
+  font-family:'Playfair Display', serif;
+}
+
+.card-body p,
+.feature p{
+  color:var(--muted);
+  line-height:1.7;
+  font-family:'Poppins',sans-serif;
+}
+
+.feature{
+  padding:22px;
+}
+
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+  gap:16px;
+}
+
+.portfolio-grid img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:18px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  transition:transform .2s ease;
+}
+
+ .portfolio-grid img:hover{
+  transform:scale(1.02);
+}
+
+.comparison-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:18px;
+}
+
+.comparison-card{
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:var(--surface);
+  box-shadow:var(--shadow);
+}
+
+.comparison-image{
+  --position:50%;
+  position:relative;
+  aspect-ratio:4 / 3;
+  overflow:hidden;
+  background:#1e293b;
+}
+
+.comparison-image > img,
+.comparison-before img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.comparison-before{
+  position:absolute;
+  inset:0;
+  clip-path:inset(0 calc(100% - var(--position)) 0 0);
+}
+
+.comparison-before img{
+  filter:grayscale(.45) sepia(.18) brightness(.78) contrast(.88);
+}
+
+.comparison-divider{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:var(--position);
+  width:2px;
+  background:#fff;
+  transform:translateX(-50%);
+  pointer-events:none;
+  box-shadow:0 0 8px rgba(0,0,0,.45);
+}
+
+.comparison-divider::after{
+  content:"↔";
+  position:absolute;
+  top:50%;
+  left:50%;
+  display:grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  border:2px solid #fff;
+  border-radius:50%;
+  background:var(--primary-dark);
+  color:#fff;
+  font-size:20px;
+  transform:translate(-50%,-50%);
+}
+
+.comparison-label{
+  position:absolute;
+  top:12px;
+  z-index:1;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(15,23,42,.72);
+  color:#fff;
+  font-size:.8rem;
+  font-weight:600;
+  pointer-events:none;
+}
+
+.comparison-label.before{left:12px;}
+.comparison-label.after{right:12px;}
+
+.comparison-slider{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  width:100%;
+  height:100%;
+  margin:0;
+  opacity:0;
+  cursor:ew-resize;
+}
+
+.comparison-slider:focus-visible{
+  opacity:.08;
+  outline:3px solid var(--primary);
+  outline-offset:-3px;
+}
+
+.comparison-caption{
+  padding:14px 18px;
+  color:var(--muted);
+  font-size:.95rem;
+}
+
+
+.about-glance{
+  display:grid;
+  grid-template-columns:minmax(220px, .8fr) 1.2fr;
+  gap:24px;
+  align-items:center;
+}
+
+.about-glance img{
+  display:block;
+  width:100%;
+  max-height:420px;
+  object-fit:cover;
+  object-position:center 35%;
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+
+.about-glance h3{
+  margin-bottom:12px;
+  color:#f9a8d4;
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;
+}
+
+.about-glance-copy p + p{
+  margin-top:12px;
+}
+
+.contact-list{
+  display:grid;
+  gap:14px;
+  margin-top:10px;
+}
+
+.contact-item{
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:rgba(255,255,255,.06);
+}
+
+body.light .contact-item{
+  background:rgba(255,255,255,.88);
+}
+
+.contact-item span{
+  display:block;
+  color:var(--muted);
+  margin-bottom:6px;
+  font-size:.95rem;
+  font-family:'Poppins',sans-serif;
+}
+
+.contact-item a{
+  color:#f9a8d4;
+  font-weight:600;
+  font-family:'Poppins',sans-serif;
+}
+
+body.light .contact-item a{
+  color:var(--primary-dark);
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.92);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal img{
+  max-width:min(95vw, 1100px);
+  max-height:90vh;
+  border-radius:18px;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+.modal-close{
+  position:absolute;
+  top:18px;
+  right:22px;
+  color:#fff;
+  font-size:42px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:24px 0 8px;
+  font-size:.95rem;
+  font-family:'Poppins',sans-serif;
+}
+
+@media (max-width: 900px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width: 640px){
+  .page{
+    width:min(100% - 16px, 1200px);
+    margin:8px auto;
+  }
+
+  .navbar{
+    border-radius:20px;
+    padding:12px;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .brand{
+    text-align:center;
+    width:100%;
+  }
+
+  .nav-right{
+    width:100%;
+    flex-direction:column;
+    align-items:stretch;
+    gap:10px;
+  }
+
+  .nav-links{
+    width:100%;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .nav-links a,
+  .theme-toggle{
+    width:100%;
+    text-align:center;
+  }
+
+  .hero,
+  .section{
+    padding:16px;
+    border-radius:20px;
+  }
+
+  .hero{
+    gap:18px;
+  }
+
+  .hero-copy h1{
+    font-size:clamp(1.8rem, 8vw, 2.6rem);
+  }
+
+  .hero-copy p{
+    font-size:.98rem;
+    line-height:1.7;
+    max-width:none;
+  }
+
+  .hero-actions{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .card img,
+  .portfolio-grid img{
+    height:190px;
+  }
+
+  .portfolio-grid{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .section-header h2{
+    font-size:1.45rem;
+  }
+
+  .section-header p{
+    font-size:.95rem;
+  }
+
+  .card-body,
+  .feature{
+    padding:18px;
+  }
+
+  .about-glance{
+    grid-template-columns:1fr;
+  }
+
+  .about-glance img{
+    max-height:360px;
+  }
+
+  .contact-item{
+    padding:16px;
+  }
+
+  .footer{
+    padding:18px 0 6px;
+    font-size:.9rem;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="navbar">
+    <div class="brand">Tyla Photography</div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">Light Mode</button>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#before-after">Before &amp; After</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-copy">
+      <h1>Clean, timeless photography for your special moments.</h1>
+      <p>
+        Capturing portraits, family memories, events, and creative sessions with a soft, modern style.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#portfolio">View Portfolio</a>
+        <a class="btn btn-secondary" href="#contact">Book / Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="portfolio">
+    <div class="section-header">
+      <h2>Portfolio</h2>
+      <p>Click any image to view it larger.</p>
+    </div>
+    <div class="portfolio-grid">
+      <img src="https://cdn.discordapp.com/attachments/1360840245146554408/1527454078748065872/DSCN1362.JPG?ex=6a5ab7f7&is=6a596677&hm=9c2cc650e141b4b39edd0677cd59b1f8e419eef64b9b387b68bb9be525749e99&=&format=webp&width=1240&height=930" alt="Portfolio 5" onclick="openModal(this.src)">
+      <img src="https://cdn.discordapp.com/attachments/1360840245146554408/1527454338979594260/DSCN1084.JPG?ex=6a5ab835&is=6a5966b5&hm=22f9ca58a387e7b057535d89d2ede9be8897f46a9697975670a2f68e11072f72&=&format=webp&width=743&height=990" alt="Portfolio 6" onclick="openModal(this.src)">
+      <img src="https://cdn.discordapp.com/attachments/1418770197032079403/1527506469610721370/685C038F-6B54-40A4-A9E1-D4E4C2B5A2C1.jpg?ex=6a5ae8c2&is=6a599742&hm=18811a1e3e24f14364062fe324f9a16d6bba2ad16601c32adfd4e7cc231e36f6&" alt="Portfolio 7" onclick="openModal(this.src)">
+      <img src="https://cdn.discordapp.com/attachments/1418770197032079403/1527506470340661248/EB11DAAB-23F4-4983-899B-C3ABDE499EF6.jpg?ex=6a5ae8c2&is=6a599742&hm=2ab0bad96f99c3172ddc5f2efc9104de827b585590b9e785efc843d0572c4bcd&" alt="Portfolio 8" onclick="openModal(this.src)">
+      <img src="https://cdn.discordapp.com/attachments/1360840245146554408/1527453856886423602/image.png?ex=6a5ab7c2&is=6a596642&hm=4a7adcf564e4bf12e551374e2e0023ea200482a01f7439bb3a4f984d55426833&" alt="Portfolio 9" onclick="openModal(this.src)">
+    </div>
+  </section>
+
+  <section class="section" id="before-after">
+    <div class="section-header">
+      <h2>Before &amp; After</h2>
+      <p>Drag each slider to see how editing brings out the color and light.</p>
+    </div>
+    <div class="comparison-grid">
+      <div class="comparison-card">
+        <div class="comparison-image">
+          <img src="https://cdn.discordapp.com/attachments/1360840245146554408/1527454078748065872/DSCN1362.JPG?ex=6a5ab7f7&is=6a596677&hm=9c2cc650e141b4b39edd0677cd59b1f8e419eef64b9b387b68bb9be525749e99&=&format=webp&width=1240&height=930" alt="Edited portrait">
+          <div class="comparison-before"><img src="https://cdn.discordapp.com/attachments/1360840245146554408/1527454078748065872/DSCN1362.JPG?ex=6a5ab7f7&is=6a596677&hm=9c2cc650e141b4b39edd0677cd59b1f8e419eef64b9b387b68bb9be525749e99&=&format=webp&width=1240&height=930" alt=""></div>
+          <span class="comparison-label before">Before</span>
+          <span class="comparison-label after">After</span>
+          <div class="comparison-divider"></div>
+          <input class="comparison-slider" type="range" min="0" max="100" value="50" aria-label="Compare before and after editing for photo one">
+        </div>
+        <p class="comparison-caption">Color and light refinement</p>
+      </div>
+      <div class="comparison-card">
+        <div class="comparison-image">
+          <img src="https://cdn.discordapp.com/attachments/1360840245146554408/1527454338979594260/DSCN1084.JPG?ex=6a5ab835&is=6a5966b5&hm=22f9ca58a387e7b057535d89d2ede9be8897f46a9697975670a2f68e11072f72&=&format=webp&width=743&height=990" alt="Edited portrait">
+          <div class="comparison-before"><img src="https://cdn.discordapp.com/attachments/1360840245146554408/1527454338979594260/DSCN1084.JPG?ex=6a5ab835&is=6a5966b5&hm=22f9ca58a387e7b057535d89d2ede9be8897f46a9697975670a2f68e11072f72&=&format=webp&width=743&height=990" alt=""></div>
+          <span class="comparison-label before">Before</span>
+          <span class="comparison-label after">After</span>
+          <div class="comparison-divider"></div>
+          <input class="comparison-slider" type="range" min="0" max="100" value="50" aria-label="Compare before and after editing for photo two">
+        </div>
+        <p class="comparison-caption">A soft, polished finish</p>
+      </div>
+      <div class="comparison-card">
+        <div class="comparison-image">
+          <img src="https://cdn.discordapp.com/attachments/1418770197032079403/1527506469610721370/685C038F-6B54-40A4-A9E1-D4E4C2B5A2C1.jpg?ex=6a5ae8c2&is=6a599742&hm=18811a1e3e24f14364062fe324f9a16d6bba2ad16601c32adfd4e7cc231e36f6&" alt="Edited portrait">
+          <div class="comparison-before"><img src="https://cdn.discordapp.com/attachments/1418770197032079403/1527506469610721370/685C038F-6B54-40A4-A9E1-D4E4C2B5A2C1.jpg?ex=6a5ae8c2&is=6a599742&hm=18811a1e3e24f14364062fe324f9a16d6bba2ad16601c32adfd4e7cc231e36f6&" alt=""></div>
+          <span class="comparison-label before">Before</span>
+          <span class="comparison-label after">After</span>
+          <div class="comparison-divider"></div>
+          <input class="comparison-slider" type="range" min="0" max="100" value="50" aria-label="Compare before and after editing for photo three">
+        </div>
+        <p class="comparison-caption">Clean tones and balanced contrast</p>
+      </div>
+      <div class="comparison-card">
+        <div class="comparison-image">
+          <img src="https://cdn.discordapp.com/attachments/1403948357193564163/1572379181520658606/gator2.jpg?ex=6afe27ba&is=6afcd63a&hm=0941f392fd8e22ed98c3a6d38fcc7e0d05c9523921c397c01c20c782d3a04652&" alt="Edited gator photo">
+          <div class="comparison-before"><img src="https://media.discordapp.net/attachments/1403948357193564163/1572379211413332110/gator.JPG?ex=6afe27c1&is=6afcd641&hm=6c258b24c7a69a77c20fdc483837112980053dbc8c36f8862aec5825085b68e1&format=webp&width=769&height=1024" alt="Original gator photo"></div>
+          <span class="comparison-label before">Before</span>
+          <span class="comparison-label after">After</span>
+          <div class="comparison-divider"></div>
+          <input class="comparison-slider" type="range" min="0" max="100" value="50" aria-label="Compare gator photo before and after editing">
+        </div>
+        <p class="comparison-caption">Gator photo editing</p>
+      </div>
+      <div class="comparison-card">
+        <div class="comparison-image">
+          <img src="https://cdn.discordapp.com/attachments/1403948357193564163/1572380652718784763/604ef421-909e-423b-a8e2-08e477b51a0d.jpg?ex=6afe2919&is=6afcd799&hm=43618d945090c3f56f42d3ad4e6a3a122ca563ce9415b208449025dbde009437&" alt="Edited photo">
+          <div class="comparison-before"><img src="https://cdn.discordapp.com/attachments/1403948357193564163/1572380754879586475/image.png?ex=6afe2931&is=6afcd7b1&hm=98b66d4821cf1b688ae06e8b4d7616f21b16c0f7acde1b89fc5fe5d270a87718&" alt="Original photo"></div>
+          <span class="comparison-label before">Before</span>
+          <span class="comparison-label after">After</span>
+          <div class="comparison-divider"></div>
+          <input class="comparison-slider" type="range" min="0" max="100" value="50" aria-label="Compare photo before and after editing">
+        </div>
+        <p class="comparison-caption">Photo editing</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-header">
+      <h2>About Me</h2>
+      <p>A little bit about Tyla Photography.</p>
+    </div>
+    <div class="card feature about-glance">
+      <img src="https://cdn.discordapp.com/attachments/1403948357193564163/1572383309852315718/IMG_5195.jpg?ex=6afe2b92&is=6afcda12&hm=943620ab1da94fbf79290c015b2e9d603e262a55d85d3d0524585ff289699328&" alt="Tyla outdoors, smiling over her shoulder">
+      <div class="about-glance-copy">
+        <h3>A Glance at Me</h3>
+        <p>Hi, I’m Tyla. I love capturing natural moments, special memories, and beautiful stories through photography.</p>
+        <p>My goal is to make every session feel comfortable, creative, and fun.</p>
+        <p>I work with portraits, family sessions, events, and special occasions.</p>
+        <p>I enjoy turning everyday moments into memories that last forever.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="section-header">
+      <h2>Services</h2>
+      <p>Photography services I offer.</p>
+    </div>
+    <div class="grid">
+      <div class="card feature">
+        <h3>Portrait Sessions</h3>
+        <p>Perfect for solo pictures, senior photos, and professional profile shots.</p>
+      </div>
+      <div class="card feature">
+        <h3>Family Photos</h3>
+        <p>Capture your family in a warm, natural, and memorable way.</p>
+      </div>
+      <div class="card feature">
+        <h3>Event Coverage</h3>
+        <p>Birthdays, celebrations, and special gatherings photographed with care.</p>
+      </div>
+      <div class="card feature">
+        <h3>Custom Shoots</h3>
+        <p>Have a special idea? I can help create a photo session that fits your vision.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="testimonials">
+    <div class="section-header">
+      <h2>Testimonials</h2>
+      <p>What clients might say about their experience.</p>
+    </div>
+    <div class="grid">
+      <div class="card card-body">
+        <h3>Great Experience</h3>
+        <p>"The session was super comfortable and the pictures came out amazing."</p>
+      </div>
+      <div class="card card-body">
+        <h3>Beautiful Photos</h3>
+        <p>"Every photo looked clean, natural, and professional. I loved them all."</p>
+      </div>
+      <div class="card card-body">
+        <h3>Friendly and Fun</h3>
+        <p>"The whole process felt easy and enjoyable from start to finish."</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <div class="section-header">
+      <h2>Gallery Notes</h2>
+      <p>A few highlights from the style and experience.</p>
+    </div>
+    <div class="grid">
+      <div class="card card-body">
+        <h3>Natural Lighting</h3>
+        <p>Soft light keeps portraits flattering and timeless.</p>
+      </div>
+      <div class="card card-body">
+        <h3>Relaxed Sessions</h3>
+        <p>I focus on making sessions easy, calm, and comfortable.</p>
+      </div>
+      <div class="card card-body">
+        <h3>Editing Style</h3>
+        <p>Clean tones and balanced colors help every photo feel polished.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="section-header">
+      <h2>FAQ</h2>
+      <p>Common questions and quick answers.</p>
+    </div>
+    <div class="grid">
+      <div class="card card-body">
+        <h3>How do I book?</h3>
+        <p>Send a message by email or phone to start the booking process.</p>
+      </div>
+      <div class="card card-body">
+        <h3>What should I wear?</h3>
+        <p>Neutral, solid colors usually work best for photos.</p>
+      </div>
+      <div class="card card-body">
+        <h3>Do you do custom sessions?</h3>
+        <p>Yes, I can help create a session that matches your idea.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-header">
+      <h2>Contact</h2>
+      <p>Reach out to book a session or ask a question.</p>
+    </div>
+    <div class="contact-list">
+      <div class="contact-item">
+        <span>Email</span>
+        <a href="mailto:tsheehan1213@gmail.com">tsheehan1213@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span>Phone</span>
+        <a href="tel:+17273554104">(727) 355-4104</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">Tyla Photography</div>
+</div>
+
+<div class="modal" id="imageModal" onclick="closeModal()">
+  <span class="modal-close">&times;</span>
+  <img id="modalImage" alt="Expanded photo">
+</div>
+
+<script>
+function openModal(src){
+  document.getElementById('modalImage').src = src;
+  document.getElementById('imageModal').style.display = 'flex';
+}
+
+function closeModal(){
+  document.getElementById('imageModal').style.display = 'none';
+}
+
+function toggleTheme(){
+  const body = document.body;
+  const btn = document.getElementById('themeToggle');
+  body.classList.toggle('light');
+  btn.textContent = body.classList.contains('light') ? 'Dark Mode' : 'Light Mode';
+}
+
+document.querySelector('.modal-close').addEventListener('click', closeModal);
+document.getElementById('imageModal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+
+document.querySelectorAll('.comparison-slider').forEach(function(slider){
+  slider.addEventListener('input', function(){
+    this.closest('.comparison-image').style.setProperty('--position', this.value + '%');
+  });
+});
+</script>
+</body>
+</html>
